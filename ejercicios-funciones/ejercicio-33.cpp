@@ -33,45 +33,43 @@ void ordenarVectorAscendente(int vector[], int longitud){
 int main() {
     int N, M;
     int A[100], B[100];
-    int vectorUnion[200]; // 200 porque en el peor caso junta todos los de A y B
-    int vectorInterseccion[100]; 
+    int vectorUnion[200]; 
+    int vectorInterseccion[100];
     
     int cantUnion = 0;
     int cantInter = 0;
     
-    // 1. CARGA DE DATOS
-    cout << "Ingrese la cantidad de elementos de A (N): ";
+    // carga de datos
+    cout << "Ingrese la cantidad de elementos de A: ";
     cin >> N;
     for (int i = 0; i < N; i = i + 1) {
         cout << "Valor para A[" << i << "]: ";
         cin >> A[i];
     }
     
-    cout << "\nIngrese la cantidad de elementos de B (M): ";
+    cout << "Ingrese la cantidad de elementos de B: ";
     cin >> M;
     for (int i = 0; i < M; i = i + 1) {
         cout << "Valor para B[" << i << "]: ";
         cin >> B[i];
     }
     
-    // 2. ORDENAMIENTO (Requisito del enunciado)
+    // ordena
     ordenarVectorAscendente(A, N);
     ordenarVectorAscendente(B, M);
     
-    // 3. CALCULO DE LA INTERSECCION (Los que estan en A y en B)
-    // Recorremos el vector A y por cada elemento, lo buscamos en B
+    
     for (int i = 0; i < N; i = i + 1) {
         int candidato = A[i];
         
-        // Si el elemento de A EXISTE en B, y todavía NO EXISTE en el vector resultado...
+       
         if (existeEnVector(B, M, candidato) == true && existeEnVector(vectorInterseccion, cantInter, candidato) == false) {
             vectorInterseccion[cantInter] = candidato;
             cantInter = cantInter + 1;
         }
     }
     
-    // 4. CALCULO DE LA UNION (Todos los de A + Todos los de B, sin repetir)
-    // Primero, volcamos todo el vector A en el vector Union
+    
     for (int i = 0; i < N; i = i + 1) {
         int candidato = A[i];
         if (existeEnVector(vectorUnion, cantUnion, candidato) == false) {
@@ -79,7 +77,7 @@ int main() {
             cantUnion = cantUnion + 1;
         }
     }
-    // Segundo, volcamos todo el vector B, solo si no estaban ya adentro
+    
     for (int i = 0; i < M; i = i + 1) {
         int candidato = B[i];
         if (existeEnVector(vectorUnion, cantUnion, candidato) == false) {
@@ -88,8 +86,8 @@ int main() {
         }
     }
     
-    // 5. SALIDA DE RESULTADOS
-    cout << "\n=====================================" << endl;
+    // salida
+    
     
     cout << "Vector UNION (" << cantUnion << " elementos): [ ";
     for (int i = 0; i < cantUnion; i = i + 1) cout << vectorUnion[i] << " ";
@@ -99,7 +97,6 @@ int main() {
     for (int i = 0; i < cantInter; i = i + 1) cout << vectorInterseccion[i] << " ";
     cout << "]" << endl;
     
-    cout << "=====================================" << endl;
     
     return 0;
 }
